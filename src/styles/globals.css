@@ -1,0 +1,86 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  width: 100%
+}
+
+li {
+  padding: .5% 1%;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 10px 10px;
+  min-width: 120px;
+  text-decoration: none;
+  border-style: solid;
+  border-width: 2px;
+  border-color: white;
+}
+
+li a:hover:not(.active) {
+  border-color: blue;
+  color: blue;
+}
+
+li a:hover:active {
+  background-color: #04AA6D;
+}
+
+body{
+  background-color: black;
+  background-image: url("../assets/background_still.png");
+  background-repeat: repeat;
+  font-family: "Times New Roman";
+  font-style: bold;
+  font-size: 24px;
+  height: 100vh;
+  padding:0;
+  transition: background-image 1s ease-in-out;
+}
+
+.marquee-container {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 10px;
+  position: relative;
+}
+
+.marquee-content {
+  display: inline-block;
+  animation: marquee 45s linear infinite;
+  font-family: "Times New Roman";
+  font-style: normal;
+  font-size: 32px;
+  color: red;
+}
+
+@keyframes marquee {
+  from {
+      transform: translateX(100%);
+  }
+  to {
+      transform: translateX(-100%);
+  }
+}
+
+.headerClass{
+  text-align: center;
+  position: relative;
+}
+
+.rightFrame{
+  margin: 10px auto;
+  display: inline-block;
+}
+
+.navBar {
+  padding: 10px 0px;
+  overflow: hidden;
+  display: inline-block;
+}
