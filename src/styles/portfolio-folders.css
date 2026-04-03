@@ -1,0 +1,26 @@
+@reference "./globals.css";
+
+@layer components {
+  .folder-stack {
+    --folder-overlap: clamp(5em, 12vw, 6em);
+    @apply relative flex flex-col pb-4;
+    padding-top: var(--folder-overlap);
+    isolation: isolate;
+  }
+
+  .folder-stack > .retro-folder {
+    margin-top: calc(-1 * var(--folder-overlap));
+  }
+
+  .folder-stack > .retro-folder:nth-child(3n + 1) {
+    --folder-tab-left: var(--folder-tab-edge-offset);
+  }
+
+  .folder-stack > .retro-folder:nth-child(3n + 2) {
+    --folder-tab-left: calc(50% - (var(--folder-tab-width) / 2));
+  }
+
+  .folder-stack > .retro-folder:nth-child(3n) {
+    --folder-tab-left: calc(100% - var(--folder-tab-width) - var(--folder-tab-edge-offset));
+  }
+}

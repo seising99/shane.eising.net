@@ -7,48 +7,40 @@ import "../styles/globals.css";
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <meta name="viewport" content="width=device-width" />
-    <title>Astro</title>
+    <title>Eising.net</title>
   </head>
-  <!-- Preload background images to avoid flashing -->
-  <link rel="preload" href="/assets/background_still.png" as="image" />
+  <!-- Preload animated background to minimize flashing -->
   <link rel="preload" href="/assets/background.gif" as="image" />
   <body>
-    <header class="headerClass">
-      <ul class="navBar">
-        <li><a href="/">Home</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/portfolio">Portfolio</a></li>
-        <li><a href="/contact">Contact</a></li>
-      </ul>
-      <!-- Move the button to the top-right -->
-      <button id="backgroundButton" class="absolute top-4 right-4 px-6 py-2 bg-purple-600 text-white font-bold rounded hover:bg-purple-700">
-        CLICK ME</button>
+    <header class="relative z-10 flex justify-center px-0 pb-0 pt-6 text-center">
+      <div class="flex w-[min(95%,1200px)] flex-col border-[6px] border-double border-retro-gold bg-[linear-gradient(135deg,rgba(20,0,40,0.95),rgba(40,0,80,0.85))] pb-0 pt-4 shadow-neon">
+        <div class="px-6 font-display tracking-[2px] text-retro-gold">
+          <span class="block text-[1.35rem]">EISING.NET - THE OFFICIAL WEBSITE OF SHANE EISING</span>
+          <span class="mt-1 block whitespace-pre text-[1.1rem] tracking-[1px] text-[#b8fffb]">Music    •    Theatre    •    Writing</span>
+        </div>
+        <ul class="header-tabs mt-4 list-none p-0">
+          <li><a class="nav-tab" href="/"><span class="nav-tab-label">Home</span></a></li>
+          <li><a class="nav-tab" href="/about"><span class="nav-tab-label">About</span></a></li>
+          <li><a class="nav-tab" href="/portfolio"><span class="nav-tab-label">Portfolio</span></a></li>
+          <li><a class="nav-tab" href="/contact"><span class="nav-tab-label">Contact</span></a></li>
+        </ul>
+      </div>
     </header>
 
-    <main>
-      <slot /> <!-- Page content goes here -->
+    <main class="px-4">
+      <slot />
     </main>
 
-    <script>
-        
-      document.addEventListener("DOMContentLoaded", function () {
-        const button = document.getElementById("backgroundButton");
-        if (!button) return;
-
-        const body = document.body;
-        const originalBg = "url('/assets/background_still.png')";
-        const gifBg = "url('/assets/background.gif')";
-
-        body.style.backgroundImage = originalBg;
-
-        button.addEventListener("click", () => {
-          body.style.backgroundImage = gifBg;
-          setTimeout(() => {
-            body.style.backgroundImage = originalBg;
-          }, 3000);
-        });
-      });
-    </script>
+    <footer class="px-4 pb-12 pt-8 text-center font-mono text-sm text-retro-gold">
+      <p class="my-1">© 1996 Shane Eising. All blinking lights reserved.</p>
+      <p class="my-1">This website is best viewed with <span class="uppercase tracking-[0.1em] text-retro-cyan">Netscape Navigator</span></p>
+    </footer>
   </body>
 </html>

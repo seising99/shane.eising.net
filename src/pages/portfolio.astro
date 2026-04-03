@@ -1,19 +1,53 @@
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        <title>Astro</title>
-    </head>
-    <body>
-        <header class="headerClass">
-            <ul class="navBar">
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/portfolio">Portfolio</a></li>
-            <li><a href="/contact">Contact</a></li>
-            </ul>
-        </header>
-    </body>
-</html>
+---
+import Layout from "../layouts/Layout.astro";
+import PortfolioFolders from "../components/PortfolioFolders.astro";
+
+const projects = [
+  {
+    title: "Songs From West Egg",
+    description: 'A Gatsby-inspired song-cycle steeped in champagne bubbles and regret.',
+    longDescription:
+      "Jazz-age melodies collide with glitchy radio interference in this concept album. Expect crooning horns, whispered narrators, and orchestration sketches exploring Daisy's themes.",
+    embedSrc: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/152673808&color=%23ff5500&auto_play=false",
+  },
+  {
+    title: "The Ship Show (IN PROGRESS)",
+    description: "Chamber musical chronicling an 18th-century packet service crew.",
+    longDescription:
+      "A six-hander that blends folk shanties, synth swells, and diary entries from sailors desperate to outrun bureaucracy. Currently workshopping Act II harmonies and percussion beds.",
+    embedSrc: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/313145656&color=%23ff5500&auto_play=false",
+  },
+  {
+    title: "Froggy Mail",
+    description: "(Composer, Developer) - An anthropomorphic frog takes his time to deliver packages to the residents of his idylic animal town.",
+    longDescription:
+      "From haunted cartridge OSTs to crunchy boss themes, this drawer holds cues for unreleased titles. Perfect for tapping into an 8-bit mood or mining motifs for future game collabs.",
+    embedSrc: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/189314042&color=%23ff5500&auto_play=false",
+  },
+  {
+    title: "CompuQuest9000",
+    description: "(Composer, Designer, Developer) -Take control of the M.O.U.S.E. and fight back against the ghosts of computing past.",
+    longDescription:
+      "From haunted cartridge OSTs to crunchy boss themes, this drawer holds cues for unreleased titles. Perfect for tapping into an 8-bit mood or mining motifs for future game collabs.",
+    embedSrc: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/189314042&color=%23ff5500&auto_play=false",
+  },
+  {
+    title: "Miscellaneous",
+    description: "Assorted one-offs, incomplete projects, side-quests, and digressions.",
+    longDescription:
+      "Need a bespoke cabaret closer, podcast stinger, or sonic oddity? This bin contains experiments in odd meters, surprise collaborations, and cues awaiting their forever homes.",
+    embedSrc: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/103495823&color=%23ff5500&auto_play=false",
+  }
+];
+---
+
+<Layout>
+  <section class="page-shell">
+    <h1 class="page-title">-- Portfolio --</h1>
+    <p class="body-copy mb-4">
+      A rotating sampler platter of the creative work I dig into when I'm not tinkering with code. These highlights span
+      theatre, music, and playful interactive experiments. Tap a panel to open its retro media bay.
+    </p>
+    <PortfolioFolders projects={projects} />
+  </section>
+</Layout>

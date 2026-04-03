@@ -1,0 +1,44 @@
+---
+import "../styles/portfolio-folder.css";
+
+interface Props {
+  panelId: string;
+  title: string;
+  description: string;
+  longDescription: string;
+  embedSrc: string;
+}
+
+const { panelId, title, description, longDescription, embedSrc } = Astro.props;
+---
+
+<div class="retro-folder group font-mono" data-folder>
+  <button class="folder-tab-shell" type="button" data-folder-toggle aria-expanded="false" aria-controls={panelId}>
+    <span class="folder-tab">
+      <strong class="folder-tab-title">{title}</strong>
+    </span>
+  </button>
+
+  <div class="folder-view">
+    <button class="folder-face" type="button" data-folder-toggle aria-expanded="false" aria-controls={panelId}>
+      <span class="folder-face-copy">
+        <span class="folder-description-teaser">{description}</span>
+        <span class="folder-description-full">{description}</span>
+      </span>
+      <span class="folder-chevron" aria-hidden="true"></span>
+    </button>
+
+    <div class="folder-body" id={panelId}>
+      <div class="folder-detail-panel">
+        <p class="body-copy mb-3 text-[#5b4021]">{longDescription}</p>
+        <iframe
+          src={embedSrc}
+          title={`${title} player`}
+          class="min-h-60 w-full border-2 border-[#9b7c49] bg-black shadow-[0_10px_22px_rgba(70,40,10,0.28)]"
+          loading="lazy"
+          allow="autoplay"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</div>

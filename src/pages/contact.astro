@@ -1,19 +1,44 @@
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        <title>Astro</title>
-    </head>
-    <body>
-        <header class="headerClass">
-            <ul class="navBar">
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/portfolio">Portfolio</a></li>
-            <li><a href="/contact">Contact</a></li>
-            </ul>
-        </header>
-    </body>
-</html>
+---
+import Layout from "../layouts/Layout.astro";
+
+const contacts = [
+  { label: "Email", href: "mailto:shane@eising.net", value: "shane@eising.net" },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/seising",
+    value: "linkedin.com/in/seising",
+    external: true,
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com/seising",
+    value: "github.com/seising",
+    external: true,
+  },
+];
+---
+
+<Layout>
+  <section class="page-shell">
+    <h1 class="page-title">-- Contact --</h1>
+    <p class="mb-4 text-[1.05rem] leading-7">
+      Want to chat about a project, compare notes on obscure musicals, or send over a mystery dinner prompt?
+      Reach out through any of the links below and I'll get back as quickly as I can.
+    </p>
+    <ul class="mt-6 list-none p-0">
+      {contacts.map(({ label, href, value, external }) => (
+        <li class="mb-3">
+          <span>{label}:</span>{" "}
+          <a
+            class="panel-link"
+            href={href}
+            target={external ? "_blank" : undefined}
+            rel={external ? "noopener" : undefined}
+          >
+            {value}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Layout>

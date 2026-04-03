@@ -1,0 +1,157 @@
+---
+import "../styles/portfolio-folders.css";
+import PortfolioFolder from "./PortfolioFolder.astro";
+
+interface Project {
+  title: string;
+  description: string;
+  longDescription: string;
+  embedSrc: string;
+}
+
+interface Props {
+  projects: Project[];
+}
+
+const { projects } = Astro.props;
+---
+
+<div class="folder-stack mt-6" data-folder-root>
+  {projects.map((project, index) => (
+    <PortfolioFolder panelId={`portfolio-folder-panel-${index}`} {...project} />
+  ))}
+</div>
+
+<script>
+  const folderRoots = Array.from(document.querySelectorAll("[data-folder-root]"));
+  const panelAnimations = new WeakMap();
+  const panelEase = "cubic-bezier(0.22, 1.2, 0.36, 1)";
+
+  const animatePanel = (panel, open) => {
+    const existing = panelAnimations.get(panel);
+    existing?.cancel();
+
+    const computed = getComputedStyle(panel);
+    const startHeight = panel.style.height === "auto" ? panel.scrollHeight : Number.parseFloat(computed.height) || 0;
+    const startOpacity = Number.parseFloat(computed.opacity) || 0;
+
+    if (open) {
+      const targetHeight = panel.scrollHeight;
+      panel.style.height = `${startHeight}px`;
+      panel.style.opacity = `${startOpacity}`;
+      panel.style.overflow = "hidden";
+
+      const animation = panel.animate(
+        [
+          { height: `${startHeight}px`, opacity: startOpacity, transform: "translateY(-10px)" },
+          { height: `${targetHeight + 14}px`, opacity: 1, transform: "translateY(0)" },
+          { height: `${targetHeight}px`, opacity: 1, transform: "translateY(0)" },
+        ],
+        { duration: 380, easing: panelEase, fill: "forwards" },
+      );
+
+      panel.style.height = `${targetHeight}px`;
+      panel.style.opacity = "1";
+
+      animation.onfinish = () => {
+        panel.style.height = "auto";
+        panel.style.opacity = "";
+        panel.style.overflow = "";
+        panelAnimations.delete(panel);
+      };
+
+      animation.oncancel = () => {
+        panelAnimations.delete(panel);
+      };
+
+      panelAnimations.set(panel, animation);
+      return;
+    }
+
+    const animation = panel.animate(
+      [
+        { height: `${startHeight}px`, opacity: startOpacity, transform: "translateY(0)" },
+        { height: "0px", opacity: 0, transform: "translateY(-10px)" },
+      ],
+      { duration: 220, easing: "ease-out", fill: "forwards" },
+    );
+
+    panel.style.height = "0px";
+    panel.style.opacity = "0";
+    panel.style.overflow = "hidden";
+
+    animation.onfinish = () => {
+      panel.style.height = "";
+      panel.style.opacity = "";
+      panel.style.overflow = "";
+      panelAnimations.delete(panel);
+    };
+
+    animation.oncancel = () => {
+      panelAnimations.delete(panel);
+    };
+
+    panelAnimations.set(panel, animation);
+  };
+
+  const setOpen = (folder, open) => {
+    const toggles = Array.from(folder.querySelectorAll("[data-folder-toggle]"));
+    const panel = folder.querySelector(".folder-body");
+    const view = folder.querySelector(".folder-view");
+    const face = folder.querySelector(".folder-face");
+
+    if (!(panel instanceof HTMLElement) || !(view instanceof HTMLElement) || !(face instanceof HTMLElement)) return;
+
+    if (open) {
+      const openHeight = face.offsetHeight + panel.scrollHeight;
+      folder.style.setProperty("--folder-open-height", `${openHeight}px`);
+    } else {
+      folder.style.removeProperty("--folder-open-height");
+    }
+
+    folder.toggleAttribute("data-open", open);
+    animatePanel(panel, open);
+
+    for (const toggle of toggles) {
+      toggle.setAttribute("aria-expanded", String(open));
+    }
+  };
+
+  for (const root of folderRoots) {
+    const folders = Array.from(root.querySelectorAll("[data-folder]"));
+
+    for (const folder of folders) {
+      const toggles = Array.from(folder.querySelectorAll("[data-folder-toggle]"));
+      const panel = folder.querySelector(".folder-body");
+      const frame = panel?.querySelector("iframe");
+
+      if (panel instanceof HTMLElement && frame instanceof HTMLIFrameElement) {
+        frame.addEventListener("load", () => {
+          const face = folder.querySelector(".folder-face");
+
+          if (
+            folder.hasAttribute("data-open") &&
+            panel.style.height === "auto" &&
+            face instanceof HTMLElement
+          ) {
+            folder.style.setProperty("--folder-open-height", `${face.offsetHeight + panel.scrollHeight}px`);
+          }
+        });
+      }
+
+      for (const toggle of toggles) {
+        toggle.addEventListener("click", () => {
+          const isOpen = folder.hasAttribute("data-open");
+
+          for (const otherFolder of folders) {
+            if (otherFolder !== folder && otherFolder.hasAttribute("data-open")) {
+              setOpen(otherFolder, false);
+            }
+          }
+
+          setOpen(folder, !isOpen);
+        });
+      }
+    }
+  }
+</script>
