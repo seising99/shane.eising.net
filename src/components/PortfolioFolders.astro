@@ -1,12 +1,13 @@
 ---
 import "../styles/portfolio-folders.css";
 import PortfolioFolder from "./PortfolioFolder.astro";
+import type { Track } from "./music-player/types";
 
 interface Project {
   title: string;
   description: string;
   longDescription: string;
-  embedSrc: string;
+  tracks: Track[];
 }
 
 interface Props {
@@ -94,11 +95,19 @@ const { projects } = Astro.props;
     panelAnimations.set(panel, animation);
   };
 
+  const setRootState = (root) => {
+    const hasOpenFolder = Array.from(root.querySelectorAll("[data-folder]")).some((item) =>
+      item.hasAttribute("data-open")
+    );
+    root.toggleAttribute("data-has-open-folder", hasOpenFolder);
+  };
+
   const setOpen = (folder, open) => {
     const toggles = Array.from(folder.querySelectorAll("[data-folder-toggle]"));
     const panel = folder.querySelector(".folder-body");
     const view = folder.querySelector(".folder-view");
     const face = folder.querySelector(".folder-face");
+    const root = folder.closest("[data-folder-root]");
 
     if (!(panel instanceof HTMLElement) || !(view instanceof HTMLElement) || !(face instanceof HTMLElement)) return;
 
@@ -107,6 +116,11 @@ const { projects } = Astro.props;
       folder.style.setProperty("--folder-open-height", `${openHeight}px`);
     } else {
       folder.style.removeProperty("--folder-open-height");
+      for (const audio of folder.querySelectorAll("audio")) {
+        if (audio instanceof HTMLAudioElement) {
+          audio.pause();
+        }
+      }
     }
 
     folder.toggleAttribute("data-open", open);
@@ -114,6 +128,10 @@ const { projects } = Astro.props;
 
     for (const toggle of toggles) {
       toggle.setAttribute("aria-expanded", String(open));
+    }
+
+    if (root instanceof HTMLElement) {
+      setRootState(root);
     }
   };
 
@@ -123,10 +141,10 @@ const { projects } = Astro.props;
     for (const folder of folders) {
       const toggles = Array.from(folder.querySelectorAll("[data-folder-toggle]"));
       const panel = folder.querySelector(".folder-body");
-      const frame = panel?.querySelector("iframe");
+      const audio = panel?.querySelector("audio");
 
-      if (panel instanceof HTMLElement && frame instanceof HTMLIFrameElement) {
-        frame.addEventListener("load", () => {
+      if (panel instanceof HTMLElement && audio instanceof HTMLAudioElement) {
+        audio.addEventListener("loadedmetadata", () => {
           const face = folder.querySelector(".folder-face");
 
           if (
@@ -153,5 +171,7 @@ const { projects } = Astro.props;
         });
       }
     }
+
+    setRootState(root);
   }
 </script>

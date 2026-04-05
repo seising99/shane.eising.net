@@ -260,20 +260,24 @@
     pointer-events: auto;
   }
 
+  .folder-stack[data-has-open-folder] .retro-folder:not([data-open]) {
+    filter: saturate(0.8) brightness(0.97);
+  }
+
   @media (hover: hover) and (pointer: fine) {
-    .retro-folder:has(.folder-tab-shell:hover) .folder-view,
-    .retro-folder:has(.folder-view:hover) .folder-view {
+    .folder-stack:not([data-has-open-folder]) .retro-folder:has(.folder-tab-shell:hover) .folder-view,
+    .folder-stack:not([data-has-open-folder]) .retro-folder:has(.folder-view:hover) .folder-view {
       max-height: var(--folder-open-height, var(--folder-face-height));
     }
 
-    .retro-folder:has(.folder-tab-shell:hover):not([data-open]),
-    .retro-folder:has(.folder-view:hover):not([data-open]) {
+    .folder-stack:not([data-has-open-folder]) .retro-folder:has(.folder-tab-shell:hover):not([data-open]),
+    .folder-stack:not([data-has-open-folder]) .retro-folder:has(.folder-view:hover):not([data-open]) {
       --folder-shift-y: -2.5rem;
       --folder-scale: 1.018;
     }
 
-    .retro-folder:has(.folder-tab-shell:hover) .folder-face,
-    .retro-folder:has(.folder-view:hover) .folder-face {
+    .folder-stack:not([data-has-open-folder]) .retro-folder:has(.folder-tab-shell:hover) .folder-face,
+    .folder-stack:not([data-has-open-folder]) .retro-folder:has(.folder-view:hover) .folder-face {
       background-color: #f2d9a7;
       background-image: linear-gradient(
         180deg,
@@ -289,19 +293,19 @@
         2px 2px 0 rgba(62, 35, 10, 0.1);
     }
 
-    .retro-folder:has(.folder-tab-shell:hover) .folder-description-full,
-    .retro-folder:has(.folder-view:hover) .folder-description-full {
+    .folder-stack:not([data-has-open-folder]) .retro-folder:has(.folder-tab-shell:hover) .folder-description-full,
+    .folder-stack:not([data-has-open-folder]) .retro-folder:has(.folder-view:hover) .folder-description-full {
       max-height: 4rem;
       opacity: 1;
     }
 
-    .retro-folder:has(.folder-tab-shell:hover) .folder-description-teaser,
-    .retro-folder:has(.folder-view:hover) .folder-description-teaser {
+    .folder-stack:not([data-has-open-folder]) .retro-folder:has(.folder-tab-shell:hover) .folder-description-teaser,
+    .folder-stack:not([data-has-open-folder]) .retro-folder:has(.folder-view:hover) .folder-description-teaser {
       opacity: 0;
     }
 
-    .retro-folder:has(.folder-tab-shell:hover) .folder-chevron,
-    .retro-folder:has(.folder-view:hover) .folder-chevron {
+    .folder-stack:not([data-has-open-folder]) .retro-folder:has(.folder-tab-shell:hover) .folder-chevron,
+    .folder-stack:not([data-has-open-folder]) .retro-folder:has(.folder-view:hover) .folder-chevron {
       transform: translateY(-1px) scale(1.08);
     }
   }
@@ -326,8 +330,8 @@
     }
 
     @media (hover: hover) and (pointer: fine) {
-      .retro-folder:has(.folder-tab-shell:hover):not([data-open]),
-      .retro-folder:has(.folder-view:hover):not([data-open]) {
+      .folder-stack:not([data-has-open-folder]) .retro-folder:has(.folder-tab-shell:hover):not([data-open]),
+      .folder-stack:not([data-has-open-folder]) .retro-folder:has(.folder-view:hover):not([data-open]) {
         --folder-shift-y: -0.16rem;
         --folder-scale: 1.01;
       }

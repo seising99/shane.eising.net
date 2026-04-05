@@ -23,4 +23,8 @@
   .folder-stack > .retro-folder:nth-child(3n) {
     --folder-tab-left: calc(100% - var(--folder-tab-width) - var(--folder-tab-edge-offset));
   }
+
+  .folder-stack[data-has-open-folder] > .retro-folder:not([data-open]) {
+    pointer-events: none;
+  }
 }

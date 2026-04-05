@@ -1,0 +1,13 @@
+---
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+
+<div class="music-player-titlebar">
+  <span class="music-player-titlebar-stripe"></span>
+  <span class="music-player-titlebar-text">{label}</span>
+  <span class="music-player-titlebar-stripe"></span>
+</div>

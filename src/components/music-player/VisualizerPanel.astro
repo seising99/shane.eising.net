@@ -1,0 +1,21 @@
+---
+import { IDLE_VISUALIZER_HEIGHTS } from "./data";
+---
+
+<div class="music-player-timer-panel">
+  <div class="music-player-status" aria-hidden="true">
+    <span class="music-player-status-stack">
+      <span class="music-player-sync-light"></span>
+      <span class="music-player-sync-light-off"></span>
+    </span>
+    <span class="music-player-state-indicator">
+      <span class="music-player-state-icon music-player-state-icon-play"></span>
+    </span>
+  </div>
+  <p class="music-player-clock" data-player-clock>0:00</p>
+  <div class="music-player-visualizer" aria-hidden="true">
+    {IDLE_VISUALIZER_HEIGHTS.map((height) => (
+      <span data-player-bar style={`height:${height}%`}></span>
+    ))}
+  </div>
+</div>

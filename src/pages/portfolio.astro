@@ -2,41 +2,71 @@
 import Layout from "../layouts/Layout.astro";
 import PortfolioFolders from "../components/PortfolioFolders.astro";
 
+const mediaBaseUrl = "https://shane-portfolio-media.eising.net";
+const mediaSrc = (path: string) => `${mediaBaseUrl}${path}`;
+
 const projects = [
   {
     title: "Songs From West Egg",
-    description: 'A Gatsby-inspired song-cycle steeped in champagne bubbles and regret.',
+    description: 'A Gatsby-inspired song-cycle.',
     longDescription:
-      "Jazz-age melodies collide with glitchy radio interference in this concept album. Expect crooning horns, whispered narrators, and orchestration sketches exploring Daisy's themes.",
-    embedSrc: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/152673808&color=%23ff5500&auto_play=false",
+      "The classic myth is recounted in a minimalist take on America's greatest story.",
+    tracks: [
+      { title: "Under the Red, White, and Blue", src: mediaSrc("/audio/songs-from-west-egg/1.mp3") },
+      { title: "The Valley of Ashes", src: mediaSrc("/audio/songs-from-west-egg/2.mp3") },
+      { title: "Reaching Out", src: mediaSrc("/audio/songs-from-west-egg/3.mp3") },
+      { title: "Oranges and Lemons", src: mediaSrc("/audio/songs-from-west-egg/4.mp3") },
+      { title: "The Ballad of Daisy Fay", src: mediaSrc("/audio/songs-from-west-egg/5.mp3") },
+      { title: "Nobody's Coming to Tea", src: mediaSrc("/audio/songs-from-west-egg/6.mp3") },
+      { title: "Dreamsong", src: mediaSrc("/audio/songs-from-west-egg/7.mp3") },
+      { title: "Rumors", src: mediaSrc("/audio/songs-from-west-egg/8.mp3") },
+      { title: "Gatz", src: mediaSrc("/audio/songs-from-west-egg/9.mp3") },
+      { title: "Confrontation", src: mediaSrc("/audio/songs-from-west-egg/10.mp3") },
+      { title: "Home", src: mediaSrc("/audio/songs-from-west-egg/11.mp3") },
+      { title: "Valley (Reprise)", src: mediaSrc("/audio/songs-from-west-egg/12.mp3") },
+      { title: "The Light", src: mediaSrc("/audio/songs-from-west-egg/13.mp3") },
+      { title: "To Live and Die, By The American Dream", src: mediaSrc("/audio/songs-from-west-egg/14.mp3") },
+    ],
   },
   {
     title: "The Ship Show (IN PROGRESS)",
-    description: "Chamber musical chronicling an 18th-century packet service crew.",
+    description: "A chamber musical chronicling an 18th-century packet service.",
     longDescription:
-      "A six-hander that blends folk shanties, synth swells, and diary entries from sailors desperate to outrun bureaucracy. Currently workshopping Act II harmonies and percussion beds.",
-    embedSrc: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/313145656&color=%23ff5500&auto_play=false",
+      "Six men are tested and discover hard truths about themselves and each other.",
+    tracks: [
+      { title: "Packet Service", src: mediaSrc("/audio/the-ship-show/packet-service.mp3") },
+      { title: "Hard Weather", src: mediaSrc("/audio/the-ship-show/hard-weather.mp3") },
+    ],
   },
   {
     title: "Froggy Mail",
-    description: "(Composer, Developer) - An anthropomorphic frog takes his time to deliver packages to the residents of his idylic animal town.",
+    description: "A game about mail.",
     longDescription:
-      "From haunted cartridge OSTs to crunchy boss themes, this drawer holds cues for unreleased titles. Perfect for tapping into an 8-bit mood or mining motifs for future game collabs.",
-    embedSrc: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/189314042&color=%23ff5500&auto_play=false",
+      "Composer, Developer - An anthropomorphic frog takes his time to deliver packages to the residents of his idylic animal town.",
+    tracks: [
+      { title: "Snow", src: mediaSrc("/audio/froggy-mail/snow.mp3") },
+      { title: "The 5/4 Mail Delivery Waltz", src: mediaSrc("/audio/froggy-mail/the_5_4_mail_delivery_waltz.mp3") },
+      { title: "Tropical Freeway 2.0", src: mediaSrc("/audio/froggy-mail/tropical_freeway%202.0.mp3") },
+    ],
   },
   {
     title: "CompuQuest9000",
-    description: "(Composer, Designer, Developer) -Take control of the M.O.U.S.E. and fight back against the ghosts of computing past.",
+    description: "A game about old computers.",
     longDescription:
-      "From haunted cartridge OSTs to crunchy boss themes, this drawer holds cues for unreleased titles. Perfect for tapping into an 8-bit mood or mining motifs for future game collabs.",
-    embedSrc: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/189314042&color=%23ff5500&auto_play=false",
+      "Composer, Designer, Developer - Take control of the M.O.U.S.E. and fight back against the ghosts of computing past.",
+    tracks: [
+      { title: "Boot Screen", src: mediaSrc("/audio/compuquest9000/boot-screen.mp3") },
+      { title: "Ghost in the Machine", src: mediaSrc("/audio/compuquest9000/ghost-in-the-machine.mp3") },
+    ],
   },
   {
     title: "Miscellaneous",
-    description: "Assorted one-offs, incomplete projects, side-quests, and digressions.",
+    description: "The junk drawer.",
     longDescription:
-      "Need a bespoke cabaret closer, podcast stinger, or sonic oddity? This bin contains experiments in odd meters, surprise collaborations, and cues awaiting their forever homes.",
-    embedSrc: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/103495823&color=%23ff5500&auto_play=false",
+      "Assorted one-offs, incomplete projects, side-quests, and digressions.",
+    tracks: [
+      { title: "Sisyphus, The Spiral", src: mediaSrc("/audio/misc/Sisyphus_The_Spiral.mp3") },
+    ],
   }
 ];
 ---

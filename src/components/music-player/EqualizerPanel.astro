@@ -1,0 +1,27 @@
+---
+import { EQ_BANDS } from "./data";
+import TitleBar from "./TitleBar.astro";
+---
+
+<div class="music-player-eq-window" aria-hidden="true">
+  <TitleBar label="EQUALIZER" />
+
+  <div class="music-player-eq-body">
+    <div class="music-player-eq-guides">
+      <span>+20 dB</span>
+      <span>0 dB</span>
+      <span>-20 dB</span>
+    </div>
+
+    <div class="music-player-eq-bands">
+      {EQ_BANDS.map((band) => (
+        <div class="music-player-eq-band">
+          <span class="music-player-eq-track"></span>
+          <span class="music-player-eq-fill" style={`height:${band.level}%`}></span>
+          <span class="music-player-eq-knob" style={`bottom:calc(${band.level}% - 0.55rem)`}></span>
+          <span class="music-player-eq-label">{band.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

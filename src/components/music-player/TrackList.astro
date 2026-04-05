@@ -1,0 +1,35 @@
+---
+import type { Track } from "./types";
+
+interface Props {
+  tracks: Track[];
+}
+
+const { tracks } = Astro.props;
+const hasTracks = tracks.length > 0;
+---
+
+<div class="music-player-playlist-shell">
+  <div class="music-player-playlist-window">
+    {hasTracks ? (
+      <ol class="music-player-playlist">
+        {tracks.map((track, index) => (
+          <li>
+            <button
+              class={`music-player-track-button ${index === 0 ? "is-active" : ""}`}
+              type="button"
+              data-player-track
+              data-track-title={track.title}
+              data-track-src={track.src}
+            >
+              <span class="music-player-track-index">{String(index + 1).padStart(2, "0")}.</span>
+              <span class="music-player-track-name">{track.title}</span>
+            </button>
+          </li>
+        ))}
+      </ol>
+    ) : (
+      <p class="music-player-empty">Add tracks to this project playlist to enable playback.</p>
+    )}
+  </div>
+</div>

@@ -1,0 +1,8 @@
+---
+import Player from "./music-player/MusicPlayer.astro";
+import type { MusicPlayerProps } from "./music-player/types";
+
+const props = Astro.props as MusicPlayerProps;
+---
+
+<Player {...props} />

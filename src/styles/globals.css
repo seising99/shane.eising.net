@@ -52,7 +52,7 @@
   }
 
   .nav-tab {
-    @apply flex min-h-[56px] w-full items-center justify-center border-b-0 border-l-0 border-r-2 border-t-0 border-retro-gold bg-gradient-to-b from-[rgba(255,0,161,0.78)] to-[rgba(116,0,189,0.92)] px-4 py-2 text-center uppercase tracking-[0.1em] text-white no-underline shadow-[inset_0_1px_0_rgba(255,255,255,0.22)] hover:bg-gradient-to-b hover:from-[rgba(0,224,255,0.78)] hover:to-[rgba(0,110,255,0.92)] hover:text-white;
+    @apply flex min-h-[56px] w-full items-center justify-center border-b-0 border-l-0 border-r-2 border-t-0 border-retro-gold bg-linear-to-b from-[rgba(255,0,161,0.78)] to-[rgba(116,0,189,0.92)] px-4 py-2 text-center uppercase tracking-[0.1em] text-white no-underline shadow-[inset_0_1px_0_rgba(255,255,255,0.22)] hover:bg-linear-to-b hover:from-[rgba(0,224,255,0.78)] hover:to-[rgba(0,110,255,0.92)] hover:text-white;
   }
 
   .nav-tab-label {
