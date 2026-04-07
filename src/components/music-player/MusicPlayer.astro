@@ -4,9 +4,13 @@ import EqualizerPanel from "./EqualizerPanel.astro";
 import TitleBar from "./TitleBar.astro";
 import TrackList from "./TrackList.astro";
 import VisualizerPanel from "./VisualizerPanel.astro";
-import type { MusicPlayerProps } from "./types";
+import type { Track } from "./types";
 
-const { tracks } = Astro.props as MusicPlayerProps;
+interface Props {
+  tracks: Track[];
+}
+
+const { tracks } = Astro.props as Props;
 const hasTracks = tracks.length > 0;
 ---
 

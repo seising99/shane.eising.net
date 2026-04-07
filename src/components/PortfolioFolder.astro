@@ -1,6 +1,6 @@
 ---
 import "../styles/portfolio-folder.css";
-import MusicPlayer from "./MusicPlayer.astro";
+import MusicPlayer from "./music-player/MusicPlayer.astro";
 import type { Track } from "./music-player/types";
 
 interface Props {
@@ -9,13 +9,16 @@ interface Props {
   description: string;
   longDescription: string;
   tracks: Track[];
+  tabPosition: "left" | "center" | "right";
+  categoryLabel?: string;
 }
 
-const { panelId, title, description, longDescription, tracks } = Astro.props;
+const { panelId, title, description, longDescription, tracks, tabPosition, categoryLabel } = Astro.props;
 ---
 
-<div class="retro-folder group font-mono" data-folder>
+<div class="retro-folder group font-mono" data-folder data-tab-position={tabPosition}>
   <button class="folder-tab-shell" type="button" data-folder-toggle aria-expanded="false" aria-controls={panelId}>
+    {categoryLabel && <span class="folder-category-marker">{categoryLabel}</span>}
     <span class="folder-tab">
       <strong class="folder-tab-title">{title}</strong>
     </span>
@@ -24,7 +27,6 @@ const { panelId, title, description, longDescription, tracks } = Astro.props;
   <div class="folder-view">
     <button class="folder-face" type="button" data-folder-toggle aria-expanded="false" aria-controls={panelId}>
       <span class="folder-face-copy">
-        <span class="folder-description-teaser">{description}</span>
         <span class="folder-description-full">{description}</span>
       </span>
       <span class="folder-chevron" aria-hidden="true"></span>

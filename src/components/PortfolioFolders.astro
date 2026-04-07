@@ -1,5 +1,4 @@
 ---
-import "../styles/portfolio-folders.css";
 import PortfolioFolder from "./PortfolioFolder.astro";
 import type { Track } from "./music-player/types";
 
@@ -10,23 +9,43 @@ interface Project {
   tracks: Track[];
 }
 
-interface Props {
+interface FlattenedProject extends Project {
+  categoryLabel?: string;
+}
+
+interface Category {
+  label: string;
   projects: Project[];
 }
 
-const { projects } = Astro.props;
+interface Props {
+  categories: Category[];
+}
+
+const { categories } = Astro.props;
+const tabPositions = ["left", "center", "right"] as const;
+const projects: FlattenedProject[] = categories.flatMap((category) =>
+  category.projects.map((project, index) => ({
+    ...project,
+    categoryLabel: index === 0 ? category.label : undefined,
+  })),
+);
 ---
 
 <div class="folder-stack mt-6" data-folder-root>
   {projects.map((project, index) => (
-    <PortfolioFolder panelId={`portfolio-folder-panel-${index}`} {...project} />
+    <PortfolioFolder
+      panelId={`portfolio-folder-panel-${index}`}
+      tabPosition={tabPositions[index % tabPositions.length]}
+      {...project}
+    />
   ))}
 </div>
 
 <script>
-  const folderRoots = Array.from(document.querySelectorAll("[data-folder-root]"));
   const panelAnimations = new WeakMap();
   const panelEase = "cubic-bezier(0.22, 1.2, 0.36, 1)";
+  const getFolders = (root) => Array.from(root.querySelectorAll("[data-folder]"));
 
   const animatePanel = (panel, open) => {
     const existing = panelAnimations.get(panel);
@@ -96,10 +115,7 @@ const { projects } = Astro.props;
   };
 
   const setRootState = (root) => {
-    const hasOpenFolder = Array.from(root.querySelectorAll("[data-folder]")).some((item) =>
-      item.hasAttribute("data-open")
-    );
-    root.toggleAttribute("data-has-open-folder", hasOpenFolder);
+    root.toggleAttribute("data-has-open-folder", getFolders(root).some((item) => item.hasAttribute("data-open")));
   };
 
   const setOpen = (folder, open) => {
@@ -112,8 +128,7 @@ const { projects } = Astro.props;
     if (!(panel instanceof HTMLElement) || !(view instanceof HTMLElement) || !(face instanceof HTMLElement)) return;
 
     if (open) {
-      const openHeight = face.offsetHeight + panel.scrollHeight;
-      folder.style.setProperty("--folder-open-height", `${openHeight}px`);
+      folder.style.setProperty("--folder-open-height", `${face.offsetHeight + panel.scrollHeight}px`);
     } else {
       folder.style.removeProperty("--folder-open-height");
       for (const audio of folder.querySelectorAll("audio")) {
@@ -135,8 +150,8 @@ const { projects } = Astro.props;
     }
   };
 
-  for (const root of folderRoots) {
-    const folders = Array.from(root.querySelectorAll("[data-folder]"));
+  for (const root of document.querySelectorAll("[data-folder-root]")) {
+    const folders = getFolders(root);
 
     for (const folder of folders) {
       const toggles = Array.from(folder.querySelectorAll("[data-folder-toggle]"));
@@ -159,15 +174,12 @@ const { projects } = Astro.props;
 
       for (const toggle of toggles) {
         toggle.addEventListener("click", () => {
-          const isOpen = folder.hasAttribute("data-open");
-
           for (const otherFolder of folders) {
             if (otherFolder !== folder && otherFolder.hasAttribute("data-open")) {
               setOpen(otherFolder, false);
             }
           }
-
-          setOpen(folder, !isOpen);
+          setOpen(folder, !folder.hasAttribute("data-open"));
         });
       }
     }
