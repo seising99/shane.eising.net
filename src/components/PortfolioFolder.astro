@@ -4,39 +4,69 @@ import MusicPlayer from "./music-player/MusicPlayer.astro";
 import type { Track } from "./music-player/types";
 
 interface Props {
-  panelId: string;
-  title: string;
-  description: string;
-  longDescription: string;
-  tracks: Track[];
-  tabPosition: "left" | "center" | "right";
-  categoryLabel?: string;
+    panelId: string;
+    id: string;
+    title: string;
+    description: string;
+    longDescription: string;
+    tracks: Track[];
+    tabPosition: "left" | "center" | "right";
+    categoryLabel?: string;
 }
 
-const { panelId, title, description, longDescription, tracks, tabPosition, categoryLabel } = Astro.props;
+const {
+    panelId,
+    id,
+    title,
+    description,
+    longDescription,
+    tracks,
+    tabPosition,
+    categoryLabel,
+} = Astro.props as Props;
 ---
 
-<div class="retro-folder group font-mono" data-folder data-tab-position={tabPosition}>
-  <button class="folder-tab-shell" type="button" data-folder-toggle aria-expanded="false" aria-controls={panelId}>
-    {categoryLabel && <span class="folder-category-marker">{categoryLabel}</span>}
-    <span class="folder-tab">
-      <strong class="folder-tab-title">{title}</strong>
-    </span>
-  </button>
-
-  <div class="folder-view">
-    <button class="folder-face" type="button" data-folder-toggle aria-expanded="false" aria-controls={panelId}>
-      <span class="folder-face-copy">
-        <span class="folder-description-full">{description}</span>
-      </span>
-      <span class="folder-chevron" aria-hidden="true"></span>
+<div
+    class="retro-folder group font-mono"
+    data-folder
+    data-tab-position={tabPosition}
+>
+    <button
+        class="folder-tab-shell"
+        type="button"
+        data-folder-toggle
+        aria-expanded="false"
+        aria-controls={panelId}
+    >
+        {
+            categoryLabel && (
+                <span class="folder-category-marker">{categoryLabel}</span>
+            )
+        }
+        <span class="folder-tab">
+            <strong class="folder-tab-title">{title}</strong>
+        </span>
     </button>
 
-    <div class="folder-body" id={panelId}>
-      <div class="folder-detail-panel">
-        <p class="body-copy mb-3 text-[#5b4021]">{longDescription}</p>
-        <MusicPlayer tracks={tracks} />
-      </div>
+    <div class="folder-view">
+        <button
+            class="folder-face"
+            type="button"
+            data-folder-toggle
+            aria-expanded="false"
+            aria-controls={panelId}
+        >
+            <span class="folder-face-copy">
+                <span class="folder-description-full">{description}</span>
+            </span>
+            <span class="folder-chevron" aria-hidden="true"></span>
+        </button>
+
+        <div class="folder-body" id={panelId}>
+            <div class="folder-detail-panel">
+                <p class="body-copy mb-3 text-[#5b4021]">{longDescription}</p>
+                <MusicPlayer playlistId={id} playlistLabel={title} tracks={tracks} />
+            </div>
+        </div>
     </div>
-  </div>
 </div>

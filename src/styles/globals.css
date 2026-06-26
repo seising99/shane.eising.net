@@ -21,6 +21,10 @@
     @apply min-h-screen bg-black bg-[url('/assets/background.gif')] bg-repeat p-0 font-serif text-xl text-white;
   }
 
+  .site-shell {
+    padding-bottom: clamp(7rem, 14vw, 9rem);
+  }
+
   a {
     @apply transition-colors duration-150;
   }

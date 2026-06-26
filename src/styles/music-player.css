@@ -480,6 +480,225 @@
       inset -1px -1px 0 rgba(0, 0, 0, 0.38);
   }
 
+  .music-player-dock {
+    position: fixed;
+    right: clamp(0.6rem, 2vw, 1.2rem);
+    bottom: clamp(0.6rem, 2vw, 1rem);
+    z-index: 50;
+    width: min(22rem, calc(100vw - 1rem));
+  }
+
+  .music-player-dock[data-collapsed="true"] {
+    width: min(17rem, calc(100vw - 1rem));
+  }
+
+  .music-player-dock-shell {
+    border-color: #181e37;
+    box-shadow:
+      inset 1px 1px 0 rgba(151, 162, 205, 0.3),
+      inset -1px -1px 0 rgba(8, 10, 20, 0.92),
+      0 14px 26px rgba(8, 10, 25, 0.48);
+  }
+
+  .music-player-dock-titlebar {
+    gap: 0.45rem;
+    padding-right: 0.4rem;
+  }
+
+  .music-player-dock-toggle,
+  .music-player-dock-nav-button,
+  .music-player-dock-browser-button {
+    cursor: pointer;
+    border: 1px solid #727c9e;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #f7f9ff 0%, #d5def2 55%, #a7b4d1 100%);
+    box-shadow:
+      inset 1px 1px 0 rgba(255, 255, 255, 0.9),
+      inset -1px -1px 0 rgba(75, 87, 126, 0.35);
+    color: #1c2542;
+    font-family: "Courier New", monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .music-player-dock-toggle {
+    flex: 0 0 auto;
+    min-width: 3.7rem;
+    padding: 0.2rem 0.45rem;
+  }
+
+  .music-player-dock-body {
+    display: grid;
+    gap: 0.55rem;
+    padding: 0.7rem;
+  }
+
+  .music-player-dock-summary {
+    display: grid;
+    grid-template-columns: minmax(4.5rem, 5rem) minmax(0, 1fr);
+    gap: 0.6rem;
+    align-items: stretch;
+  }
+
+  .music-player-dock-side,
+  .music-player-dock-browser,
+  .music-player-dock-browser-window {
+    border: 2px solid #0f1225;
+    background:
+      linear-gradient(180deg, rgba(9, 11, 21, 0.98), rgba(3, 5, 10, 0.98)),
+      repeating-linear-gradient(180deg, rgba(66, 255, 120, 0.04) 0 2px, rgba(0, 0, 0, 0) 2px 4px);
+    box-shadow:
+      inset 1px 1px 0 rgba(79, 97, 148, 0.35),
+      inset -1px -1px 0 rgba(0, 0, 0, 0.9);
+  }
+
+  .music-player-dock-side {
+    display: grid;
+    gap: 0.35rem;
+    padding: 0.5rem 0.45rem;
+  }
+
+  .music-player-dock-clock {
+    padding: 0;
+    font-size: 1.12rem;
+    text-align: center;
+  }
+
+  .music-player-dock-visualizer {
+    display: flex;
+    height: 2.55rem;
+    align-items: end;
+    gap: 0.18rem;
+  }
+
+  .music-player-dock-visualizer span {
+    @apply block rounded-t-[1px];
+    flex: 1 1 0;
+    min-width: 0.12rem;
+    background: linear-gradient(180deg, #ffbf36 0%, #ffe34f 68%, #61ff39 100%);
+    box-shadow: 0 0 6px rgba(255, 215, 66, 0.18);
+    transform-origin: bottom;
+    opacity: 0.92;
+    transition:
+      height 260ms ease-out,
+      opacity 260ms ease-out;
+  }
+
+  .music-player-dock[data-player-state="paused"] .music-player-dock-visualizer span {
+    opacity: 0.45;
+  }
+
+  .music-player-dock[data-player-state="playing"] .music-player-dock-visualizer span {
+    animation: visualizer-pulse 900ms steps(3, end) infinite;
+  }
+
+  .music-player-dock-display {
+    min-width: 0;
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .music-player-dock-queue {
+    margin: 0;
+    color: #f2cc4d;
+    font-family: "Courier New", monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .music-player-dock-trackline {
+    min-height: 2.45rem;
+    padding-inline: 0.5rem;
+    padding-block: 0.38rem;
+  }
+
+  .music-player-dock-controls {
+    gap: 0.45rem;
+  }
+
+  .music-player-dock-controls .music-player-control {
+    height: 2rem;
+  }
+
+  .music-player-dock-browser {
+    display: grid;
+    gap: 0.45rem;
+    padding: 0.5rem;
+  }
+
+  .music-player-dock[data-collapsed="true"] .music-player-dock-browser {
+    display: none;
+  }
+
+  .music-player-dock-browser-toolbar {
+    display: flex;
+    gap: 0.35rem;
+  }
+
+  .music-player-dock-nav-button {
+    min-width: 3rem;
+    padding: 0.24rem 0.45rem;
+  }
+
+  .music-player-dock-nav-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .music-player-dock-browser-path {
+    margin: 0;
+    min-height: 1rem;
+    color: #d7dfef;
+    font-family: "Courier New", monospace;
+    font-size: 0.72rem;
+    line-height: 1.2;
+  }
+
+  .music-player-dock-browser-window {
+    min-height: 9.75rem;
+    overflow: auto;
+    padding: 0.35rem;
+  }
+
+  .music-player-dock-browser-view {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .music-player-dock-browser-button {
+    width: 100%;
+    padding: 0.5rem 0.55rem;
+    text-align: left;
+  }
+
+  .music-player-dock-browser-button:hover,
+  .music-player-dock-browser-button:focus-visible {
+    background: linear-gradient(180deg, #ffffff 0%, #e4ecfb 55%, #b6c1db 100%);
+  }
+
+  .music-player-dock-browser-window .music-player-playlist {
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .music-player-dock-browser-window::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  .music-player-dock-browser-window::-webkit-scrollbar-track {
+    background: linear-gradient(180deg, #09140a, #020602);
+    border-left: 1px solid #274a33;
+  }
+
+  .music-player-dock-browser-window::-webkit-scrollbar-thumb {
+    border: 1px solid #536173;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #d3d7dc, #9ea6b3 55%, #69717e);
+  }
+
   @media (max-width: 840px) {
     .music-player-top {
       grid-template-columns: 1fr;
@@ -505,6 +724,10 @@
 
     .music-player-playlist-shell {
       min-height: 14.5rem;
+    }
+
+    .music-player-dock {
+      width: min(20rem, calc(100vw - 1rem));
     }
   }
 
@@ -613,6 +836,31 @@
 
     .music-player-track-name {
       font-size: 0.84rem;
+    }
+
+    .music-player-dock {
+      left: 0.5rem;
+      right: 0.5rem;
+      width: auto;
+      bottom: 0.5rem;
+    }
+
+    .music-player-dock[data-collapsed="true"] {
+      width: auto;
+    }
+
+    .music-player-dock-summary {
+      grid-template-columns: 4.1rem minmax(0, 1fr);
+      gap: 0.45rem;
+    }
+
+    .music-player-dock-trackline {
+      min-height: 2.2rem;
+      padding-inline: 0.4rem;
+    }
+
+    .music-player-dock-browser-window {
+      min-height: 8.5rem;
     }
   }
 }

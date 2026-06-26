@@ -1,0 +1,223 @@
+---
+import "../../styles/music-player.css";
+import type { Category } from "../../data/portfolio";
+import { IDLE_VISUALIZER_HEIGHTS } from "./data";
+
+interface Props {
+  categories: Category[];
+}
+
+const { categories } = Astro.props as Props;
+---
+
+<section
+  class="music-player music-player-dock"
+  data-global-music-player
+  data-collapsed="true"
+>
+  <div class="music-player-shell music-player-dock-shell">
+    <div class="music-player-titlebar music-player-dock-titlebar">
+      <span class="music-player-titlebar-stripe"></span>
+      <span class="music-player-titlebar-text">POCKET JAMMER</span>
+      <span class="music-player-titlebar-stripe"></span>
+      <button
+        class="music-player-dock-toggle"
+        type="button"
+        data-dock-toggle
+        aria-expanded="false"
+        aria-label="Open music player"
+      >
+        OPEN
+      </button>
+    </div>
+
+    <div class="music-player-dock-body">
+      <div class="music-player-dock-summary">
+        <div class="music-player-dock-side">
+          <p class="music-player-clock music-player-dock-clock" data-player-clock>
+            0:00
+          </p>
+          <div class="music-player-dock-visualizer" aria-hidden="true">
+            {IDLE_VISUALIZER_HEIGHTS.map((height) => (
+              <span data-player-bar style={`height:${height}%`}></span>
+            ))}
+          </div>
+        </div>
+
+        <div class="music-player-dock-display">
+          <p class="music-player-dock-queue" data-dock-queue>
+            Portfolio Library
+          </p>
+
+          <div class="music-player-trackline music-player-dock-trackline">
+            <div class="music-player-trackline-viewport">
+              <div class="music-player-trackline-marquee" data-player-marquee>
+                <span class="music-player-trackline-title" data-player-title>
+                  Select a song
+                </span>
+                <span class="music-player-trackline-gap" aria-hidden="true">
+                  •••
+                </span>
+                <span
+                  class="music-player-trackline-title-clone"
+                  data-player-title-clone
+                  aria-hidden="true"
+                >
+                  Select a song
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="music-player-progress-shell">
+            <input
+              class="music-player-progress"
+              type="range"
+              min="0"
+              max="100"
+              value="0"
+              step="0.1"
+              data-player-progress
+              disabled
+              aria-label="Seek playback position"
+            />
+            <div class="music-player-time">
+              <span data-player-current>0:00</span>
+              <span data-player-duration>--:--</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="music-player-controls music-player-dock-controls">
+        <button
+          class="music-player-control"
+          type="button"
+          data-player-prev
+          disabled
+          aria-label="Previous track"
+        >
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M.5 3.5A.5.5 0 0 0 0 4v8a.5.5 0 0 0 1 0V8.753l6.267 3.636c.54.313 1.233-.066 1.233-.697v-2.94l6.267 3.636c.54.314 1.233-.065 1.233-.696V4.308c0-.63-.693-1.01-1.233-.696L8.5 7.248v-2.94c0-.63-.692-1.01-1.233-.696L1 7.248V4a.5.5 0 0 0-.5-.5" />
+          </svg>
+        </button>
+        <button
+          class="music-player-control music-player-control-primary"
+          type="button"
+          data-player-toggle
+          disabled
+          aria-label="Play"
+        >
+          <svg class="music-player-icon-play" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393" />
+          </svg>
+          <svg class="music-player-icon-pause" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5m5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5" />
+          </svg>
+        </button>
+        <button
+          class="music-player-control"
+          type="button"
+          data-player-next
+          disabled
+          aria-label="Next track"
+        >
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M15.5 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V8.753l-6.267 3.636c-.54.313-1.233-.066-1.233-.697v-2.94l-6.267 3.636C.693 12.703 0 12.324 0 11.693V4.308c0-.63.693-1.01 1.233-.696L7.5 7.248v-2.94c0-.63.693-1.01 1.233-.696L15 7.248V4a.5.5 0 0 1 .5-.5" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="music-player-dock-browser">
+        <div class="music-player-dock-browser-toolbar">
+          <button class="music-player-dock-nav-button" type="button" data-browser-home>
+            ROOT
+          </button>
+          <button class="music-player-dock-nav-button" type="button" data-browser-back>
+            UP
+          </button>
+        </div>
+
+        <p class="music-player-dock-browser-path" data-browser-path>Library</p>
+
+        <div class="music-player-dock-browser-window">
+          <div
+            class="music-player-dock-browser-view"
+            data-browser-view-id="root"
+          >
+            {categories.map((category, categoryIndex) => (
+              <button
+                class="music-player-dock-browser-button"
+                type="button"
+                data-browser-category
+                data-category-index={String(categoryIndex)}
+              >
+                {category.label}
+              </button>
+            ))}
+          </div>
+
+          {categories.map((category, categoryIndex) => (
+            <div
+              class="music-player-dock-browser-view"
+              data-browser-view-id={`category:${categoryIndex}`}
+              data-browser-category-label={category.label}
+              hidden
+            >
+              {category.projects.map((project) => (
+                <button
+                  class="music-player-dock-browser-button"
+                  type="button"
+                  data-browser-project
+                  data-project-id={project.id}
+                >
+                  {project.title}
+                </button>
+              ))}
+            </div>
+          ))}
+
+          {categories.flatMap((category, categoryIndex) =>
+            category.projects.map((project) => (
+              <div
+                class="music-player-dock-browser-view"
+                data-browser-view-id={`project:${project.id}`}
+                data-browser-category-index={String(categoryIndex)}
+                data-browser-category-label={category.label}
+                data-browser-project-label={project.title}
+                data-project-view
+                data-project-id={project.id}
+                hidden
+              >
+                {project.tracks.length > 0 ? (
+                  <ol class="music-player-playlist">
+                    {project.tracks.map((track, trackIndex) => (
+                      <li>
+                        <button
+                          class="music-player-track-button"
+                          type="button"
+                          data-browser-track
+                          data-project-id={project.id}
+                          data-track-index={String(trackIndex)}
+                          data-track-title={track.title}
+                          data-track-src={track.src}
+                        >
+                          <span class="music-player-track-index">
+                            {String(trackIndex + 1).padStart(2, "0")}.
+                          </span>
+                          <span class="music-player-track-name">{track.title}</span>
+                        </button>
+                      </li>
+                    ))}
+                  </ol>
+                ) : (
+                  <p class="music-player-empty">No songs in this folder yet.</p>
+                )}
+              </div>
+            )),
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

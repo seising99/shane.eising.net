@@ -1,5 +1,7 @@
 ---
 import "../styles/globals.css";
+import GlobalMusicDock from "../components/music-player/GlobalMusicDock.astro";
+import { portfolioCategories } from "../data/portfolio";
 ---
 
 <!DOCTYPE html>
@@ -18,7 +20,7 @@ import "../styles/globals.css";
   </head>
   <!-- Preload animated background to minimize flashing -->
   <link rel="preload" href="/assets/background.gif" as="image" />
-  <body>
+  <body class="site-shell">
     <header class="relative z-10 flex justify-center px-0 pb-0 pt-6 text-center">
       <div class="flex w-[min(95%,1200px)] flex-col border-[6px] border-double border-retro-gold bg-[linear-gradient(135deg,rgba(20,0,40,0.95),rgba(40,0,80,0.85))] pb-0 pt-4 shadow-neon">
         <div class="px-6 font-display tracking-[2px] text-retro-gold">
@@ -38,9 +40,17 @@ import "../styles/globals.css";
       <slot />
     </main>
 
+    <GlobalMusicDock categories={portfolioCategories} />
+
     <footer class="px-4 pb-12 pt-8 text-center font-mono text-sm text-retro-gold">
       <p class="my-1">© 1996 Shane Eising. All blinking lights reserved.</p>
       <p class="my-1">This website is best viewed with <span class="uppercase tracking-[0.1em] text-retro-cyan">Netscape Navigator</span></p>
     </footer>
+
+    <script>
+      import { setupSharedMusicUi } from "../components/music-player/player-client";
+
+      setupSharedMusicUi();
+    </script>
   </body>
 </html>

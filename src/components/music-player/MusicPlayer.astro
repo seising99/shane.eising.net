@@ -7,14 +7,21 @@ import VisualizerPanel from "./VisualizerPanel.astro";
 import type { Track } from "./types";
 
 interface Props {
+  playlistId: string;
+  playlistLabel: string;
   tracks: Track[];
 }
 
-const { tracks } = Astro.props as Props;
+const { playlistId, playlistLabel, tracks } = Astro.props as Props;
 const hasTracks = tracks.length > 0;
 ---
 
-<section class="music-player" data-music-player>
+<section
+  class="music-player"
+  data-music-player
+  data-player-id={playlistId}
+  data-player-label={playlistLabel}
+>
   <div class="music-player-shell">
     <TitleBar label="MUSIC PLAYER" />
 
@@ -87,12 +94,4 @@ const hasTracks = tracks.length > 0;
       <TrackList tracks={tracks} />
     </div>
   </div>
-
-  <audio data-player-audio preload="none"></audio>
 </section>
-
-<script>
-  import { setupMusicPlayers } from "./player-client";
-
-  setupMusicPlayers();
-</script>
